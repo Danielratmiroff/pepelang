@@ -29,7 +29,10 @@ Do you wish to continue pushing to master?
 ----------------------------------------------
 	" yn
             case $yn in
-            [Yy]*) break ;;
+            [Yy]*)
+                echo "Wild decission!, but ok"
+                break
+                ;;
             [Nn]*)
                 echo "Ok, exiting now."
                 exit

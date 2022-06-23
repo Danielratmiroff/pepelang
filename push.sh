@@ -11,7 +11,7 @@ CURRENT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
 COMMIT_COMMENT="${COMMENT:-"Progress"}"
 BRANCH="${BRANCH_PARAM:-$CURRENT_BRANCH}"
 
-function push() {
+function push {
     echo "
 ----------------------------------------------
 Running tests

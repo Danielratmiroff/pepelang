@@ -21,12 +21,17 @@ const (
 	INTEGER_OBJ      = "INTEGER"
 	BOOLEAN_OBJ      = "BOOLEAN"
 	NULL_OBJ         = "NULL"
+	STRING_OBJ       = "STRING"
 	RETURN_VALUE_OBJ = "RETURN_VALUE"
 	ERROR_OBJ        = "ERROR"
 )
 
 type Integer struct {
 	Value int64
+}
+
+type String struct {
+	Value string
 }
 
 type Function struct {
@@ -41,9 +46,6 @@ type Boolean struct {
 
 type Null struct {
 }
-type Environment struct {
-	store map[string]Object
-}
 
 type ReturnValue struct {
 	Value Object
@@ -53,19 +55,8 @@ type Error struct {
 	Message string
 }
 
-func NewEnvironment() *Environment {
-	s := make(map[string]Object)
-	return &Environment{store: s}
-}
-
-func (e *Environment) Get(name string) (Object, bool) {
-	obj, ok := e.store[name]
-	return obj, ok
-}
-func (e *Environment) Set(name string, val Object) Object {
-	e.store[name] = val
-	return val
-}
+func (s *String) Type() ObjectType { return STRING_OBJ }
+func (s *String) Inspect() string  { return s.Value }
 
 func (i *Integer) Type() ObjectType { return INTEGER_OBJ }
 func (i *Integer) Inspect() string  { return fmt.Sprintf("%d", i.Value) }

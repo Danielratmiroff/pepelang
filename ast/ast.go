@@ -43,6 +43,11 @@ type LetStatement struct {
 	Value Expression
 }
 
+type ArrayLiteral struct {
+	Token    token.Token // the [ token
+	Elements []Expression
+}
+
 type StringLiteral struct {
 	Token token.Token // the Return token
 	Value string
@@ -93,6 +98,12 @@ type PrefixExpression struct {
 	Right    Expression
 }
 
+type IndexExpression struct {
+	Token token.Token // the [ token
+	Left  Expression
+	Index Expression
+}
+
 type InfixExpression struct {
 	Token    token.Token // the infix tokens: *, +, ==, etc
 	Left     Expression
@@ -109,6 +120,22 @@ func (es *ExpressionStatement) String() string {
 	return ""
 }
 func (es *ExpressionStatement) TokenLiteral() string { return es.Token.Literal }
+
+func (al *ArrayLiteral) expressionNode()      {}
+func (al *ArrayLiteral) TokenLiteral() string { return al.Token.Literal }
+func (al *ArrayLiteral) String() string {
+	var out bytes.Buffer
+
+	elements := []string{}
+	for _, el := range al.Elements {
+		elements = append(elements, el.String())
+	}
+	out.WriteString("[")
+	out.WriteString(strings.Join(elements, ", "))
+	out.WriteString("]")
+
+	return out.String()
+}
 
 func (ls *LetStatement) statementNode() {}
 func (ls *LetStatement) String() string {
@@ -160,6 +187,21 @@ func (ie *IfExpression) String() string {
 	}
 	return out.String()
 }
+
+func (ie *IndexExpression) expressionNode()      {}
+func (ie *IndexExpression) TokenLiteral() string { return ie.Token.Literal }
+func (ie *IndexExpression) String() string {
+	var out bytes.Buffer
+
+	out.WriteString("(")
+	out.WriteString(ie.Left.String())
+	out.WriteString("[")
+	out.WriteString(ie.Index.String())
+	out.WriteString("])")
+
+	return out.String()
+}
+
 func (fl *FunctionLiteral) expressionNode()      {}
 func (fl *FunctionLiteral) TokenLiteral() string { return fl.Token.Literal }
 func (fl *FunctionLiteral) String() string {

@@ -20,7 +20,7 @@ Running tests
 
     go test ./...
 
-    if [ $? == "1" ]; then
+    if [ "$?" == "1" ]; then
         while true; do
             read -p "
 ----------------------------------------------

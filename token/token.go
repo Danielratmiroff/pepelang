@@ -34,6 +34,7 @@ const (
 
 	// Delimiters
 	COMMA     = ","
+	COLON     = ":"
 	SEMICOLON = ";"
 
 	LBRACKET = "["

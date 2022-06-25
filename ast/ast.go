@@ -43,6 +43,11 @@ type LetStatement struct {
 	Value Expression
 }
 
+type HashLiteral struct {
+	Token token.Token // the { token
+	Pairs map[Expression]Expression
+}
+
 type ArrayLiteral struct {
 	Token    token.Token // the [ token
 	Elements []Expression
@@ -120,6 +125,23 @@ func (es *ExpressionStatement) String() string {
 	return ""
 }
 func (es *ExpressionStatement) TokenLiteral() string { return es.Token.Literal }
+
+func (hl *HashLiteral) expressionNode()      {}
+func (hl *HashLiteral) TokenLiteral() string { return hl.Token.Literal }
+func (hl *HashLiteral) String() string {
+	var out bytes.Buffer
+
+	pairs := []string{}
+	for key, value := range hl.Pairs {
+		pairs = append(pairs, key.String()+":"+value.String())
+	}
+
+	out.WriteString("{")
+	out.WriteString(strings.Join(pairs, ", "))
+	out.WriteString("}")
+
+	return out.String()
+}
 
 func (al *ArrayLiteral) expressionNode()      {}
 func (al *ArrayLiteral) TokenLiteral() string { return al.Token.Literal }

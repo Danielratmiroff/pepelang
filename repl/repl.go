@@ -1,7 +1,5 @@
 package repl
 
-// Read Eval Print Loop (each line)
-
 import (
 	"bufio"
 	"fmt"

@@ -62,5 +62,9 @@ func TestPPLFiles(t *testing.T) {
 			t.Fatalf("Empty code evaluation, want=%s", evaluated.Inspect())
 		}
 
+		if evaluated.Inspect() != tt.expectedValue {
+			t.Fatalf("Wrong evaluated value, got=%s, want=%s", evaluated.Inspect(), tt.expectedValue)
+		}
+
 	}
 }

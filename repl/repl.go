@@ -27,52 +27,43 @@ func Start(in io.Reader, out io.Writer) {
 		}
 
 		line := scanner.Text()
-		fields := strings.Fields(line)
-		if fields[0] == "r" {
-			// todo:
-			// pass a custom file name
-			// check for correct file extension
-			// reuse the lexer/parser code (below as well)
-			fileBytes, err := ioutil.ReadFile("./hey.txt")
-			if err != nil {
-				log.Fatal("Error reading file:", err)
-			}
+		input := readExpectedInput(line)
 
-			line := (string(fileBytes))
+		l := lexer.New(input)
+		p := parser.New(l)
+		program := p.ParseProgram()
 
-			l := lexer.New(line)
-			p := parser.New(l)
-
-			program := p.ParseProgram()
-
-			if len(p.Errors()) != 0 {
-				printParseErrors(out, p.Errors())
-				continue
-			}
-
-			evaluated := evaluator.Eval(program, env)
-			if evaluated != nil {
-				io.WriteString(out, evaluated.Inspect())
-				io.WriteString(out, "\n")
-			}
-
-		} else {
-			l := lexer.New(line)
-			p := parser.New(l)
-
-			program := p.ParseProgram()
-
-			if len(p.Errors()) != 0 {
-				printParseErrors(out, p.Errors())
-				continue
-			}
-
-			evaluated := evaluator.Eval(program, env)
-			if evaluated != nil {
-				io.WriteString(out, evaluated.Inspect())
-				io.WriteString(out, "\n")
-			}
+		if len(p.Errors()) != 0 {
+			printParseErrors(out, p.Errors())
+			continue
 		}
+
+		evaluated := evaluator.Eval(program, env)
+		if evaluated != nil {
+			io.WriteString(out, evaluated.Inspect())
+			io.WriteString(out, "\n")
+		}
+	}
+}
+
+// Read line or file
+func readExpectedInput(line string) string {
+	fields := strings.Fields(line)
+	if fields[0] == "pp" {
+		if len(fields) > 2 {
+			log.Fatalf("Too many arguments, expected 2, got:%d", len(fields))
+		}
+
+		f := fields[1]
+		fileBytes, err := ioutil.ReadFile(f)
+		if err != nil {
+			log.Fatal("Error reading file:", err)
+		}
+
+		return string(fileBytes)
+
+	} else {
+		return line
 	}
 }
 

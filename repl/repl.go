@@ -4,10 +4,13 @@ import (
 	"bufio"
 	"fmt"
 	"io"
+	"io/ioutil"
+	"log"
 	"ratmy/evaluator"
 	"ratmy/lexer"
 	"ratmy/object"
 	"ratmy/parser"
+	"strings"
 )
 
 const PROMPT = ">> "
@@ -24,20 +27,51 @@ func Start(in io.Reader, out io.Writer) {
 		}
 
 		line := scanner.Text()
-		l := lexer.New(line)
-		p := parser.New(l)
+		fields := strings.Fields(line)
+		if fields[0] == "r" {
+			// todo:
+			// pass a custom file name
+			// check for correct file extension
+			// reuse the lexer/parser code (below as well)
+			fileBytes, err := ioutil.ReadFile("./hey.txt")
+			if err != nil {
+				log.Fatal("Error reading file:", err)
+			}
 
-		program := p.ParseProgram()
+			line := (string(fileBytes))
 
-		if len(p.Errors()) != 0 {
-			printParseErrors(out, p.Errors())
-			continue
-		}
+			l := lexer.New(line)
+			p := parser.New(l)
 
-		evaluated := evaluator.Eval(program, env)
-		if evaluated != nil {
-			io.WriteString(out, evaluated.Inspect())
-			io.WriteString(out, "\n")
+			program := p.ParseProgram()
+
+			if len(p.Errors()) != 0 {
+				printParseErrors(out, p.Errors())
+				continue
+			}
+
+			evaluated := evaluator.Eval(program, env)
+			if evaluated != nil {
+				io.WriteString(out, evaluated.Inspect())
+				io.WriteString(out, "\n")
+			}
+
+		} else {
+			l := lexer.New(line)
+			p := parser.New(l)
+
+			program := p.ParseProgram()
+
+			if len(p.Errors()) != 0 {
+				printParseErrors(out, p.Errors())
+				continue
+			}
+
+			evaluated := evaluator.Eval(program, env)
+			if evaluated != nil {
+				io.WriteString(out, evaluated.Inspect())
+				io.WriteString(out, "\n")
+			}
 		}
 	}
 }

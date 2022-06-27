@@ -1,0 +1,5 @@
+let hey = fn(a) {
+    return a + 3;
+}
+
+hey(3)

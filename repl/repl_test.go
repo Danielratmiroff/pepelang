@@ -2,26 +2,21 @@ package repl
 
 import (
 	"bufio"
-	"io/ioutil"
-	"ratmy/evaluator"
-	"ratmy/lexer"
-	"ratmy/object"
-	"ratmy/parser"
 	"strings"
 	"testing"
 )
 
-func TestPPLFiles(t *testing.T) {
+func TestReadExpectedInput(t *testing.T) {
 	tests := []struct {
-		input string
+		input         string
+		expectedValue interface{}
 	}{
-		{"pp ./test_program.ppl"},
+		{"pp ./test_program.ppl", `let hey = fn(a) { return a + 3; } hey(1)`},
+		{"5 + 5", "5 + 5"},
 	}
-	// todo: delete unnecesary loop
 	for _, tt := range tests {
 		newRead := strings.NewReader(tt.input)
 		scanner := bufio.NewScanner(newRead)
-		env := object.NewEnvironment()
 
 		scanned := scanner.Scan()
 		if !scanned {
@@ -29,36 +24,10 @@ func TestPPLFiles(t *testing.T) {
 		}
 
 		line := scanner.Text()
-		fields := strings.Fields(line)
+		fileLine := ReadExpectedInput(line)
 
-		if fields[0] != "pp" {
-			t.Fatalf("Missing read file command as input. got=%s, expected='pp'", fields[0])
-		}
-
-		if len(fields) > 2 {
-			t.Fatalf("Too many input arguments got=%d want=2", len(fields))
-		}
-
-		f := fields[1]
-		fileBytes, err := ioutil.ReadFile(f)
-		if err != nil {
-			t.Fatalf("Error reading file 'test_program.ppl' got=%s, Error: %s", tt.input, err)
-		}
-
-		fileLine := string(fileBytes)
-
-		l := lexer.New(fileLine)
-		p := parser.New(l)
-		program := p.ParseProgram()
-
-		if len(p.Errors()) != 0 {
-			t.Fatalf("Found parse errors: %s", p.Errors())
-			continue
-		}
-
-		evaluated := evaluator.Eval(program, env)
-		if evaluated == nil {
-			t.Fatalf("Empty code evaluation, want=%s", evaluated.Inspect())
+		if fileLine != tt.expectedValue {
+			t.Fatalf("fileLine values do not match, got=%s want=%s", fileLine, tt.expectedValue)
 		}
 
 	}

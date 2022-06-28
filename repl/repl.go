@@ -27,7 +27,7 @@ func Start(in io.Reader, out io.Writer) {
 		}
 
 		line := scanner.Text()
-		input := readExpectedInput(line)
+		input := ReadExpectedInput(line)
 
 		l := lexer.New(input)
 		p := parser.New(l)
@@ -47,11 +47,11 @@ func Start(in io.Reader, out io.Writer) {
 }
 
 // Read line or file
-func readExpectedInput(line string) string {
+func ReadExpectedInput(line string) string {
 	fields := strings.Fields(line)
 	if fields[0] == "pp" {
 		if len(fields) > 2 {
-			log.Fatalf("Too many arguments, expected 2, got:%d", len(fields))
+			log.Fatalf("Too many arguments, got=%d want=2", len(fields))
 		}
 
 		f := fields[1]

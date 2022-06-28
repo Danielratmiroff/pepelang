@@ -37,8 +37,8 @@ type BlockStatement struct {
 	Statements []Statement
 }
 
-type LetStatement struct {
-	Token token.Token // the Let token
+type VarStatement struct {
+	Token token.Token // the Var token
 	Name  *Identifier
 	Value Expression
 }
@@ -159,8 +159,8 @@ func (al *ArrayLiteral) String() string {
 	return out.String()
 }
 
-func (ls *LetStatement) statementNode() {}
-func (ls *LetStatement) String() string {
+func (ls *VarStatement) statementNode() {}
+func (ls *VarStatement) String() string {
 	var out bytes.Buffer
 
 	out.WriteString(ls.TokenLiteral() + " ")
@@ -175,7 +175,7 @@ func (ls *LetStatement) String() string {
 
 	return out.String()
 }
-func (ls *LetStatement) TokenLiteral() string { return ls.Token.Literal }
+func (ls *VarStatement) TokenLiteral() string { return ls.Token.Literal }
 
 func (rs *ReturnStatement) statementNode() {}
 func (rs *ReturnStatement) String() string {

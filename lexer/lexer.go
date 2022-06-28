@@ -112,7 +112,7 @@ func (l *Lexer) NextToken() token.Token {
 		tok.Literal = ""
 		tok.Type = token.EOF
 	default:
-		if isLetter(l.ch) {
+		if isVarter(l.ch) {
 			literal := l.readIdentifier()
 			tok.Literal = literal
 			tok.Type = token.LookupIdent(literal)
@@ -132,7 +132,7 @@ func (l *Lexer) NextToken() token.Token {
 
 func (l *Lexer) readIdentifier() string {
 	position := l.position
-	for isLetter(l.ch) {
+	for isVarter(l.ch) {
 		l.readChar()
 	}
 	return l.input[position:l.position]
@@ -151,7 +151,7 @@ func isDigit(ch byte) bool {
 	return '0' <= ch && ch <= '9'
 }
 
-func isLetter(ch byte) bool {
+func isVarter(ch byte) bool {
 	return 'a' <= ch && ch <= 'z' || 'A' <= ch && ch <= 'Z' || ch == '_'
 }
 

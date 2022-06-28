@@ -11,7 +11,7 @@ func TestReadExpectedInput(t *testing.T) {
 		input         string
 		expectedValue interface{}
 	}{
-		{"pp ./test_program.ppl", `let hey = fn(a) { return a + 3; } hey(1)`},
+		{"pp ./test_program.ppl", `var hey = fn(a) { return a + 3; } hey(1)`},
 		{"5 + 5", "5 + 5"},
 	}
 	for _, tt := range tests {

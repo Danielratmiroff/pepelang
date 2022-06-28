@@ -61,7 +61,6 @@ func ReadExpectedInput(line string) string {
 		}
 
 		return string(fileBytes)
-
 	} else {
 		return line
 	}

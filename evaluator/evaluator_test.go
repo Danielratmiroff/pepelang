@@ -40,8 +40,8 @@ func TestEvalBooleanExpression(t *testing.T) {
 		input    string
 		expected bool
 	}{
-		{"true", true},
-		{"false", false},
+		{"verdad", true},
+		{"falso", false},
 		{"1 < 2", true},
 		{"1 > 2", false},
 		{"1 < 1", false},
@@ -50,15 +50,15 @@ func TestEvalBooleanExpression(t *testing.T) {
 		{"1 != 1", false},
 		{"1 == 2", false},
 		{"1 != 2", true},
-		{"true == true", true},
-		{"false == false", true},
-		{"true == false", false},
-		{"true != false", true},
-		{"false != true", true},
-		{"(1 < 2) == true", true},
-		{"(1 < 2) == false", false},
-		{"(1 > 2) == true", false},
-		{"(1 > 2) == false", true},
+		{"verdad == verdad", true},
+		{"verdad == verdad", true},
+		{"verdad == falso", false},
+		{"verdad != falso", true},
+		{"falso != verdad", true},
+		{"(1 < 2) == verdad", true},
+		{"(1 < 2) == falso", false},
+		{"(1 > 2) == verdad", false},
+		{"(1 > 2) == falso", true},
 	}
 
 	for _, tt := range tests {
@@ -72,11 +72,11 @@ func TestBangOperator(t *testing.T) {
 		input    string
 		expected bool
 	}{
-		{"!true", false},
-		{"!false", true},
+		{"!verdad", false},
+		{"!falso", true},
 		{"!5", false},
-		{"!!true", true},
-		{"!!false", false},
+		{"!!verdad", true},
+		{"!!falso", false},
 		{"!!5", true},
 	}
 
@@ -91,13 +91,13 @@ func TestIfElseExpressions(t *testing.T) {
 		input    string
 		expected interface{}
 	}{
-		{"if (true) { 10 }", 10},
-		{"if (false) { 10 }", nil},
-		{"if (1) { 10 }", 10},
-		{"if (1 < 2) { 10 }", 10},
-		{"if (1 > 2) { 10 }", nil},
-		{"if (1 > 2) { 10 } else { 20 }", 20},
-		{"if (1 < 2) { 10 } else { 20 }", 10},
+		{"si (verdad) { 10 }", 10},
+		{"si (falso) { 10 }", nil},
+		{"si (1) { 10 }", 10},
+		{"si (1 < 2) { 10 }", 10},
+		{"si (1 > 2) { 10 }", nil},
+		{"si (1 > 2) { 10 } sino { 20 }", 20},
+		{"si (1 < 2) { 10 } sino { 20 }", 10},
 	}
 
 	for _, tt := range tests {
@@ -111,7 +111,7 @@ func TestIfElseExpressions(t *testing.T) {
 	}
 }
 
-func TesTRetornarStatements(t *testing.T) {
+func TestRetornarStatements(t *testing.T) {
 	tests := []struct {
 		input    string
 		expected int64
@@ -120,11 +120,11 @@ func TesTRetornarStatements(t *testing.T) {
 		{"retornar 10; 9;", 10},
 		{"retornar 2 * 5; 9;", 10},
 		{"9; retornar 2 * 5; 9;", 10},
-		{"if (10 > 1) { retornar 10; }", 10},
+		{"si (10 > 1) { retornar 10; }", 10},
 		{
 			`
-if (10 > 1) {
-  if (10 > 1) {
+si (10 > 1) {
+  si (10 > 1) {
 	retornar 10;
   }
 
@@ -166,27 +166,27 @@ func TestErrorHandling(t *testing.T) {
 		expectedMessage string
 	}{
 		{
-			"5 + true;",
+			"5 + verdad;",
 			"type mismatch: INTEGER + BOOLEAN",
 		},
 		{
-			"5 + true; 5;",
+			"5 + verdad; 5;",
 			"type mismatch: INTEGER + BOOLEAN",
 		},
 		{
-			"-true",
+			"-verdad",
 			"unknown operator: -BOOLEAN",
 		},
 		{
-			"true + false;",
+			"verdad + falso;",
 			"unknown operator: BOOLEAN + BOOLEAN",
 		},
 		{
-			"true + false + true + false;",
+			"verdad + falso + verdad + falso;",
 			"unknown operator: BOOLEAN + BOOLEAN",
 		},
 		{
-			"5; true + false; 5",
+			"5; verdad + falso; 5",
 			"unknown operator: BOOLEAN + BOOLEAN",
 		},
 		{
@@ -194,14 +194,14 @@ func TestErrorHandling(t *testing.T) {
 			"unknown operator: STRING - STRING",
 		},
 		{
-			"if (10 > 1) { true + false; }",
+			"si (10 > 1) { verdad + falso; }",
 			"unknown operator: BOOLEAN + BOOLEAN",
 		},
 		{
 			`
-if (10 > 1) {
-  if (10 > 1) {
-    retornar true + false;
+si (10 > 1) {
+  si (10 > 1) {
+    retornar verdad + falso;
   }
 
   retornar 1;
@@ -505,8 +505,8 @@ func TestHashLiterals(t *testing.T) {
 		two: 1 + 1,
 		"thr" + "ee": 6 / 2,
 		4: 4,
-		true: 5,
-		false: 6
+		verdad: 5,
+		falso: 6
 	}`
 
 	evaluated := testEval(input)
@@ -564,11 +564,11 @@ func TestHashIndexExpressions(t *testing.T) {
 			5,
 		},
 		{
-			`{true: 5}[true]`,
+			`{verdad: 5}[verdad]`,
 			5,
 		},
 		{
-			`{false: 5}[false]`,
+			`{falso: 5}[verdad]`,
 			5,
 		},
 	}

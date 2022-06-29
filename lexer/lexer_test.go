@@ -16,10 +16,10 @@ var result = add(five, ten);
 !-/*5;
 5 < 10 > 5;
 
-if (5 < 10) {
-	retornar true;
-} else {
-	retornar false;
+si (5 < 10) {
+	retornar verdad;
+} sino {
+	retornar falso;
 }
 
 10 == 10;
@@ -82,7 +82,7 @@ if (5 < 10) {
 		{token.GT, ">"},
 		{token.INT, "5"},
 		{token.SEMICOLON, ";"},
-		{token.IF, "if"},
+		{token.IF, "si"},
 		{token.LPAREN, "("},
 		{token.INT, "5"},
 		{token.LT, "<"},
@@ -90,13 +90,13 @@ if (5 < 10) {
 		{token.RPAREN, ")"},
 		{token.LBRACE, "{"},
 		{token.RETORNAR, "retornar"},
-		{token.TRUE, "true"},
+		{token.TRUE, "verdad"},
 		{token.SEMICOLON, ";"},
 		{token.RBRACE, "}"},
-		{token.ELSE, "else"},
+		{token.ELSE, "sino"},
 		{token.LBRACE, "{"},
 		{token.RETORNAR, "retornar"},
-		{token.FALSE, "false"},
+		{token.FALSE, "falso"},
 		{token.SEMICOLON, ";"},
 		{token.RBRACE, "}"},
 		{token.INT, "10"},

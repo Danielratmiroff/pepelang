@@ -14,7 +14,7 @@ func TestVarStatements(t *testing.T) {
 		expectedValue      interface{}
 	}{
 		{"var x = 5;", "x", 5},
-		{"var y = true;", "y", true},
+		{"var y = verdad;", "y", "verdad"},
 		{"var foobar = y;", "foobar", "y"},
 	}
 
@@ -47,7 +47,7 @@ func TestRetornarStatements(t *testing.T) {
 		expectedValue interface{}
 	}{
 		{"retornar 5;", 5},
-		{"retornar true;", true},
+		{"retornar verdad;", "verdad"},
 		{"retornar foobar;", "foobar"},
 	}
 
@@ -149,8 +149,8 @@ func TestParsingPrefixExpressions(t *testing.T) {
 		{"-15;", "-", 15},
 		{"!foobar;", "!", "foobar"},
 		{"-foobar;", "-", "foobar"},
-		{"!true;", "!", true},
-		{"!false;", "!", false},
+		{"!verdad;", "!", "falso"},
+		{"!falso;", "!", "verdad"},
 	}
 
 	for _, tt := range prefixTests {
@@ -207,9 +207,9 @@ func TestParsingInfixExpressions(t *testing.T) {
 		{"foobar < barfoo;", "foobar", "<", "barfoo"},
 		{"foobar == barfoo;", "foobar", "==", "barfoo"},
 		{"foobar != barfoo;", "foobar", "!=", "barfoo"},
-		{"true == true", true, "==", true},
-		{"true != false", true, "!=", false},
-		{"false == false", false, "==", false},
+		{"verdad == verdad", true, "==", true},
+		{"verdad != falso", true, "!=", false},
+		{"falso == falso", false, "==", false},
 	}
 
 	for _, tt := range infixTests {
@@ -290,11 +290,11 @@ func TestOperatorPrecedenceParsing(t *testing.T) {
 			"((3 + (4 * 5)) == ((3 * 1) + (4 * 5)))",
 		},
 		{
-			"true",
+			"verdad",
 			"true",
 		},
 		{
-			"false",
+			"falso",
 			"false",
 		},
 		{
@@ -302,7 +302,7 @@ func TestOperatorPrecedenceParsing(t *testing.T) {
 			"((3 > 5) == false)",
 		},
 		{
-			"3 < 5 == true",
+			"3 < 5 == verdad",
 			"((3 < 5) == true)",
 		},
 		{
@@ -326,7 +326,7 @@ func TestOperatorPrecedenceParsing(t *testing.T) {
 			"(-(5 + 5))",
 		},
 		{
-			"!(true == true)",
+			"!(verdad == verdad)",
 			"(!(true == true))",
 		},
 		{
@@ -369,8 +369,8 @@ func TestBooleanExpression(t *testing.T) {
 		input           string
 		expectedBoolean bool
 	}{
-		{"true;", true},
-		{"false;", false},
+		{"verdad;", true},
+		{"falso;", false},
 	}
 
 	for _, tt := range tests {
@@ -402,7 +402,7 @@ func TestBooleanExpression(t *testing.T) {
 }
 
 func TestIfExpression(t *testing.T) {
-	input := `if (x < y) { x }`
+	input := `si (x < y) { x }`
 
 	l := lexer.New(input)
 	p := New(l)
@@ -451,7 +451,7 @@ func TestIfExpression(t *testing.T) {
 }
 
 func TestIfElseExpression(t *testing.T) {
-	input := `if (x < y) { x } else { y }`
+	input := `si (x < y) { x } sino { y }`
 
 	l := lexer.New(input)
 	p := New(l)

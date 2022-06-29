@@ -22,7 +22,7 @@ const (
 	BOOLEAN_OBJ = "BOOLEAN"
 	STRING_OBJ  = "STRING"
 
-	RETURN_VALUE_OBJ = "RETURN_VALUE"
+	RETORNAR_VALUE_OBJ = "RETURN_VALUE"
 
 	FUNCTION_OBJ = "FUNCTION"
 	BUILTIN_OBJ  = "BUILTIN"
@@ -84,12 +84,12 @@ type Null struct{}
 func (n *Null) Type() ObjectType { return NULL_OBJ }
 func (n *Null) Inspect() string  { return "nulo" }
 
-type ReturnValue struct {
+type RetornarValue struct {
 	Value Object
 }
 
-func (rv *ReturnValue) Type() ObjectType { return RETURN_VALUE_OBJ }
-func (rv *ReturnValue) Inspect() string  { return rv.Value.Inspect() }
+func (rv *RetornarValue) Type() ObjectType { return RETORNAR_VALUE_OBJ }
+func (rv *RetornarValue) Inspect() string  { return rv.Value.Inspect() }
 
 type Error struct {
 	Message string

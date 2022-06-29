@@ -41,14 +41,14 @@ func TestVarStatements(t *testing.T) {
 	}
 }
 
-func TestReturnStatements(t *testing.T) {
+func TestRetornarStatements(t *testing.T) {
 	tests := []struct {
 		input         string
 		expectedValue interface{}
 	}{
-		{"return 5;", 5},
-		{"return true;", true},
-		{"return foobar;", "foobar"},
+		{"retornar 5;", 5},
+		{"retornar true;", true},
+		{"retornar foobar;", "foobar"},
 	}
 
 	for _, tt := range tests {
@@ -63,15 +63,15 @@ func TestReturnStatements(t *testing.T) {
 		}
 
 		stmt := program.Statements[0]
-		returnStmt, ok := stmt.(*ast.ReturnStatement)
+		retornarStmt, ok := stmt.(*ast.RetornarStatement)
 		if !ok {
-			t.Fatalf("stmt not *ast.returnStatement. got=%T", stmt)
+			t.Fatalf("stmt not *ast.retornarStatement. got=%T", stmt)
 		}
-		if returnStmt.TokenLiteral() != "return" {
-			t.Fatalf("returnStmt.TokenLiteral not 'return', got %q",
-				returnStmt.TokenLiteral())
+		if retornarStmt.TokenLiteral() != "retornar" {
+			t.Fatalf("retornarStmt.TokenLiteral not 'retornar', got %q",
+				retornarStmt.TokenLiteral())
 		}
-		if testLiteralExpression(t, returnStmt.ReturnValue, tt.expectedValue) {
+		if testLiteralExpression(t, retornarStmt.RetornarValue, tt.expectedValue) {
 			return
 		}
 	}

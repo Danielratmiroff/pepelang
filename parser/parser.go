@@ -149,8 +149,8 @@ func (p *Parser) parseStatement() ast.Statement {
 	switch p.curToken.Type {
 	case token.VAR:
 		return p.parseVarStatement()
-	case token.RETURN:
-		return p.parseReturnStatement()
+	case token.RETORNAR:
+		return p.parseRetornarStatement()
 	default:
 		return p.parseExpressionStatement()
 	}
@@ -180,12 +180,12 @@ func (p *Parser) parseVarStatement() *ast.VarStatement {
 	return stmt
 }
 
-func (p *Parser) parseReturnStatement() *ast.ReturnStatement {
-	stmt := &ast.ReturnStatement{Token: p.curToken}
+func (p *Parser) parseRetornarStatement() *ast.RetornarStatement {
+	stmt := &ast.RetornarStatement{Token: p.curToken}
 
 	p.nextToken()
 
-	stmt.ReturnValue = p.parseExpression(LOWEST)
+	stmt.RetornarValue = p.parseExpression(LOWEST)
 
 	if p.peekTokenIs(token.SEMICOLON) {
 		p.nextToken()

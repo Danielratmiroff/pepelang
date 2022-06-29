@@ -17,9 +17,9 @@ var result = add(five, ten);
 5 < 10 > 5;
 
 if (5 < 10) {
-	return true;
+	retornar true;
 } else {
-	return false;
+	retornar false;
 }
 
 10 == 10;
@@ -89,13 +89,13 @@ if (5 < 10) {
 		{token.INT, "10"},
 		{token.RPAREN, ")"},
 		{token.LBRACE, "{"},
-		{token.RETURN, "return"},
+		{token.RETORNAR, "retornar"},
 		{token.TRUE, "true"},
 		{token.SEMICOLON, ";"},
 		{token.RBRACE, "}"},
 		{token.ELSE, "else"},
 		{token.LBRACE, "{"},
-		{token.RETURN, "return"},
+		{token.RETORNAR, "retornar"},
 		{token.FALSE, "false"},
 		{token.SEMICOLON, ";"},
 		{token.RBRACE, "}"},

@@ -25,12 +25,12 @@ func Eval(node ast.Node, env *object.Environment) object.Object {
 	case *ast.ExpressionStatement:
 		return Eval(node.Expression, env)
 
-	case *ast.ReturnStatement:
-		val := Eval(node.ReturnValue, env)
+	case *ast.RetornarStatement:
+		val := Eval(node.RetornarValue, env)
 		if isError(val) {
 			return val
 		}
-		return &object.ReturnValue{Value: val}
+		return &object.RetornarValue{Value: val}
 
 	case *ast.VarStatement:
 		val := Eval(node.Value, env)
@@ -126,7 +126,7 @@ func evalProgram(program *ast.Program, env *object.Environment) object.Object {
 		result = Eval(statement, env)
 
 		switch result := result.(type) {
-		case *object.ReturnValue:
+		case *object.RetornarValue:
 			return result.Value
 		case *object.Error:
 			return result
@@ -147,7 +147,7 @@ func evalBlockStatement(
 
 		if result != nil {
 			rt := result.Type()
-			if rt == object.RETURN_VALUE_OBJ || rt == object.ERROR_OBJ {
+			if rt == object.RETORNAR_VALUE_OBJ || rt == object.ERROR_OBJ {
 				return result
 			}
 		}
@@ -245,10 +245,7 @@ func evalIntegerInfixExpression(operator string, left, right object.Object) obje
 	}
 }
 
-func evalStringInfixExpression(
-	operator string,
-	left, right object.Object,
-) object.Object {
+func evalStringInfixExpression(operator string, left, right object.Object) object.Object {
 	if operator != "+" {
 		return newError("unknown operator: %s %s %s",
 			left.Type(), operator, right.Type())
@@ -259,10 +256,7 @@ func evalStringInfixExpression(
 	return &object.String{Value: leftVal + rightVal}
 }
 
-func evalIfExpression(
-	ie *ast.IfExpression,
-	env *object.Environment,
-) object.Object {
+func evalIfExpression(ie *ast.IfExpression, env *object.Environment) object.Object {
 	condition := Eval(ie.Condition, env)
 	if isError(condition) {
 		return condition
@@ -277,10 +271,7 @@ func evalIfExpression(
 	}
 }
 
-func evalIdentifier(
-	node *ast.Identifier,
-	env *object.Environment,
-) object.Object {
+func evalIdentifier(node *ast.Identifier, env *object.Environment) object.Object {
 	if val, ok := env.Get(node.Value); ok {
 		return val
 	}
@@ -316,10 +307,7 @@ func isError(obj object.Object) bool {
 	return false
 }
 
-func evalExpressions(
-	exps []ast.Expression,
-	env *object.Environment,
-) []object.Object {
+func evalExpressions(exps []ast.Expression, env *object.Environment) []object.Object {
 	var result []object.Object
 
 	for _, e := range exps {
@@ -339,7 +327,7 @@ func applyFunction(fn object.Object, args []object.Object) object.Object {
 	case *object.Function:
 		extendedEnv := extendFunctionEnv(fn, args)
 		evaluated := Eval(fn.Body, extendedEnv)
-		return unwrapReturnValue(evaluated)
+		return unwrapRetornarValue(evaluated)
 
 	case *object.Builtin:
 		return fn.Fn(args...)
@@ -362,9 +350,9 @@ func extendFunctionEnv(
 	return env
 }
 
-func unwrapReturnValue(obj object.Object) object.Object {
-	if returnValue, ok := obj.(*object.ReturnValue); ok {
-		return returnValue.Value
+func unwrapRetornarValue(obj object.Object) object.Object {
+	if retornarValue, ok := obj.(*object.RetornarValue); ok {
+		return retornarValue.Value
 	}
 
 	return obj

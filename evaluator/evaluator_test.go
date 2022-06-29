@@ -111,24 +111,24 @@ func TestIfElseExpressions(t *testing.T) {
 	}
 }
 
-func TestReturnStatements(t *testing.T) {
+func TesTRetornarStatements(t *testing.T) {
 	tests := []struct {
 		input    string
 		expected int64
 	}{
-		{"return 10;", 10},
-		{"return 10; 9;", 10},
-		{"return 2 * 5; 9;", 10},
-		{"9; return 2 * 5; 9;", 10},
-		{"if (10 > 1) { return 10; }", 10},
+		{"retornar 10;", 10},
+		{"retornar 10; 9;", 10},
+		{"retornar 2 * 5; 9;", 10},
+		{"9; retornar 2 * 5; 9;", 10},
+		{"if (10 > 1) { retornar 10; }", 10},
 		{
 			`
 if (10 > 1) {
   if (10 > 1) {
-    return 10;
+	retornar 10;
   }
 
-  return 1;
+  retornar 1;
 }
 `,
 			10,
@@ -136,7 +136,7 @@ if (10 > 1) {
 		{
 			`
 var f = fn(x) {
-  return x;
+	retornar x;
   x + 10;
 };
 f(10);`,
@@ -146,8 +146,8 @@ f(10);`,
 			`
 var f = fn(x) {
    var result = x + 10;
-   return result;
-   return 10;
+   retornar result;
+   retornar 10;
 };
 f(10);`,
 			20,
@@ -201,10 +201,10 @@ func TestErrorHandling(t *testing.T) {
 			`
 if (10 > 1) {
   if (10 > 1) {
-    return true + false;
+    retornar true + false;
   }
 
-  return 1;
+  retornar 1;
 }
 `,
 			"unknown operator: BOOLEAN + BOOLEAN",
@@ -288,7 +288,7 @@ func TestFunctionApplication(t *testing.T) {
 		expected int64
 	}{
 		{"var identity = fn(x) { x; }; identity(5);", 5},
-		{"var identity = fn(x) { return x; }; identity(5);", 5},
+		{"var identity = fn(x) { retornar x; }; identity(5);", 5},
 		{"var double = fn(x) { x * 2; }; double(5);", 10},
 		{"var add = fn(x, y) { x + y; }; add(5, 5);", 10},
 		{"var add = fn(x, y) { x + y; }; add(5 + 5, add(5, 5));", 20},

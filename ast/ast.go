@@ -54,13 +54,13 @@ type ArrayLiteral struct {
 }
 
 type StringLiteral struct {
-	Token token.Token // the Return token
+	Token token.Token // the String token
 	Value string
 }
 
-type ReturnStatement struct {
-	Token       token.Token // the Return token
-	ReturnValue Expression
+type RetornarStatement struct {
+	Token         token.Token // the Return token
+	RetornarValue Expression
 }
 
 type FunctionLiteral struct {
@@ -177,21 +177,21 @@ func (ls *VarStatement) String() string {
 }
 func (ls *VarStatement) TokenLiteral() string { return ls.Token.Literal }
 
-func (rs *ReturnStatement) statementNode() {}
-func (rs *ReturnStatement) String() string {
+func (rs *RetornarStatement) statementNode() {}
+func (rs *RetornarStatement) String() string {
 	var out bytes.Buffer
 
 	out.WriteString(rs.TokenLiteral() + " ")
 
-	if rs.ReturnValue != nil {
-		out.WriteString(rs.ReturnValue.String())
+	if rs.RetornarValue != nil {
+		out.WriteString(rs.RetornarValue.String())
 	}
 
 	out.WriteString(";")
 	return out.String()
 
 }
-func (rs *ReturnStatement) TokenLiteral() string { return rs.Token.Literal }
+func (rs *RetornarStatement) TokenLiteral() string { return rs.Token.Literal }
 
 func (ie *IfExpression) expressionNode()      {}
 func (ie *IfExpression) TokenLiteral() string { return ie.Token.Literal }

@@ -61,12 +61,13 @@ type Boolean struct {
 
 func (b *Boolean) Type() ObjectType { return BOOLEAN_OBJ }
 func (b *Boolean) Inspect() string {
-	if b.Value == true {
-		return "verdad"
+	if b.Value {
+		return fmt.Sprintf("%v", "verdad")
 	} else {
-		return "falso"
+		return fmt.Sprintf("%v", "falso")
 	}
 }
+
 func (b *Boolean) HashKey() HashKey {
 	var value uint64
 
@@ -75,7 +76,6 @@ func (b *Boolean) HashKey() HashKey {
 	} else {
 		value = 0
 	}
-
 	return HashKey{Type: b.Type(), Value: value}
 }
 
@@ -178,6 +178,7 @@ func (h *Hash) Inspect() string {
 
 	pairs := []string{}
 	for _, pair := range h.Pairs {
+
 		pairs = append(pairs, fmt.Sprintf("%s: %s",
 			pair.Key.Inspect(), pair.Value.Inspect()))
 	}

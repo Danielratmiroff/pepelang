@@ -533,7 +533,6 @@ func TestHashLiterals(t *testing.T) {
 		if !ok {
 			t.Errorf("no pair for given key in Pairs")
 		}
-
 		testIntegerObject(t, pair.Value, expectedValue)
 	}
 }
@@ -568,13 +567,14 @@ func TestHashIndexExpressions(t *testing.T) {
 			5,
 		},
 		{
-			`{falso: 5}[verdad]`,
+			`{falso: 5}[falso]`,
 			5,
 		},
 	}
 
 	for _, tt := range tests {
 		evaluated := testEval(tt.input)
+
 		integer, ok := tt.expected.(int)
 		if ok {
 			testIntegerObject(t, evaluated, int64(integer))

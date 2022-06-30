@@ -21,3 +21,19 @@ func TestStringHashKey(t *testing.T) {
 		t.Errorf("strings with different content have same hash keys")
 	}
 }
+
+func TestBooleanString(t *testing.T) {
+	tests := []struct {
+		input    *Boolean
+		expected interface{}
+	}{
+		{&Boolean{Value: true}, "verdad"},
+		{&Boolean{Value: false}, "falso"},
+	}
+
+	for _, tt := range tests {
+		if tt.input.Inspect() != tt.expected {
+			t.Errorf("Boolean strings values are different, got=%s want=%s", tt.input.Inspect(), tt.expected)
+		}
+	}
+}

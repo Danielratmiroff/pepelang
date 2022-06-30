@@ -62,7 +62,7 @@ type Boolean struct {
 func (b *Boolean) Type() ObjectType { return BOOLEAN_OBJ }
 func (b *Boolean) Inspect() string {
 	if b.Value {
-		return fmt.Sprintf("%v", "true")
+		return fmt.Sprintf("%v", "verdad")
 	} else {
 		return fmt.Sprintf("%v", "falso")
 	}

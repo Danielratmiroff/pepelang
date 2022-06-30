@@ -1,7 +1,6 @@
 package evaluator
 
 import (
-	"fmt"
 	"ratmy/lexer"
 	"ratmy/object"
 	"ratmy/parser"
@@ -534,7 +533,6 @@ func TestHashLiterals(t *testing.T) {
 		if !ok {
 			t.Errorf("no pair for given key in Pairs")
 		}
-		fmt.Println(pair.Key, pair.Value)
 		testIntegerObject(t, pair.Value, expectedValue)
 	}
 }
@@ -576,8 +574,6 @@ func TestHashIndexExpressions(t *testing.T) {
 
 	for _, tt := range tests {
 		evaluated := testEval(tt.input)
-
-		fmt.Println(evaluated)
 
 		integer, ok := tt.expected.(int)
 		if ok {

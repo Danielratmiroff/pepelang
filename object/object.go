@@ -183,8 +183,6 @@ func (h *Hash) Inspect() string {
 			pair.Key.Inspect(), pair.Value.Inspect()))
 	}
 
-	fmt.Println(pairs)
-
 	out.WriteString("{")
 	out.WriteString(strings.Join(pairs, ", "))
 	out.WriteString("}")

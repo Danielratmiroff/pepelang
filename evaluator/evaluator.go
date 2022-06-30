@@ -417,6 +417,5 @@ func evalHashIndexExpression(hash, index object.Object) object.Object {
 		return NULL
 	}
 
-	// fmt.Println(2, pair.Key, pair.Value)
 	return pair.Value
 }

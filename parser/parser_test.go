@@ -1030,7 +1030,6 @@ func testIntegerLiteral(t *testing.T, il ast.Expression, value int64) bool {
 }
 
 func testIdentifier(t *testing.T, exp ast.Expression, value string) bool {
-	// fmt.Println(exp)
 	ident, ok := exp.(*ast.Identifier)
 	if !ok {
 		t.Errorf("exp not *ast.Identifier. got=%T", exp)

@@ -164,7 +164,6 @@ func (p *Parser) parseVarStatement() *ast.VarStatement {
 	}
 
 	stmt.Name = &ast.Identifier{Token: p.curToken, Value: p.curToken.Literal}
-
 	if !p.expectPeek(token.ASSIGN) {
 		return nil
 	}

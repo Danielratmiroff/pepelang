@@ -197,7 +197,6 @@ func (ie *IfExpression) expressionNode()      {}
 func (ie *IfExpression) TokenLiteral() string { return ie.Token.Literal }
 func (ie *IfExpression) String() string {
 	var out bytes.Buffer
-
 	out.WriteString("if")
 	out.WriteString(ie.Condition.String())
 	out.WriteString(" ")
@@ -261,9 +260,27 @@ func (ce *CallExpression) String() string {
 	return out.String()
 }
 
-func (b *Boolean) expressionNode()      {}
-func (b *Boolean) TokenLiteral() string { return b.Token.Literal }
-func (b *Boolean) String() string       { return b.Token.Literal }
+func (b *Boolean) expressionNode() {}
+func (b *Boolean) TokenLiteral() string {
+	if b.Token.Literal == "verdad" {
+		return "true"
+	} else if b.Token.Literal == "falso" {
+		return "false"
+	} else {
+		return b.Token.Literal
+	}
+}
+func (b *Boolean) String() string {
+	var out bytes.Buffer
+
+	if b.Token.Literal == "verdad" {
+		out.WriteString("true")
+	} else {
+		out.WriteString("false")
+	}
+
+	return out.String()
+}
 
 func (i *Identifier) expressionNode()      {}
 func (i *Identifier) String() string       { return i.Value }

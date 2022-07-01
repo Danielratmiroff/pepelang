@@ -293,7 +293,7 @@ func (p *Parser) parseSingleOperatorExpression(operator string) ast.Expression {
 
 	value, err := strconv.ParseInt(tokenLit.Literal, 0, 64)
 	if err != nil {
-		msg := fmt.Sprintf("could not parse %q as integer in postfix", tokenLit.Literal)
+		msg := fmt.Sprintf("could not parse %q as integer", tokenLit.Literal)
 		p.errors = append(p.errors, msg)
 		return nil
 
@@ -304,7 +304,7 @@ func (p *Parser) parseSingleOperatorExpression(operator string) ast.Expression {
 	return astInt
 
 	// TODO: need to add a varstatement to reasign variable
-
+	// TODO: need to add a test case for this
 }
 
 func (p *Parser) parseInfixExpression(left ast.Expression) ast.Expression {
@@ -329,7 +329,6 @@ func (p *Parser) parseInfixExpression(left ast.Expression) ast.Expression {
 
 	// fmt.Println(1, expression.Operator) // ++
 	// fmt.Println(1, expression.Left) // foobar
-	fmt.Println(1, p.curToken) // foobar
 
 	precedence := p.curPrecedence()
 

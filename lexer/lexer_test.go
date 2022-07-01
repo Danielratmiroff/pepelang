@@ -29,6 +29,9 @@ si (5 < 10) {
 "foo bar"
 [1, 2];
 {"foo": "bar"}
+
+i++
+i--
 `
 	tests := []struct {
 		expectedType    token.TokenType
@@ -120,6 +123,10 @@ si (5 < 10) {
 		{token.COLON, ":"},
 		{token.STRING, "bar"},
 		{token.RBRACE, "}"},
+		{token.IDENT, "i"},
+		{token.INC, "++"},
+		{token.IDENT, "i"},
+		{token.DEC, "--"},
 		{token.EOF, ""},
 	}
 

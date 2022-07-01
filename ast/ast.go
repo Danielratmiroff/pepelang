@@ -97,6 +97,13 @@ type IntegerLiteral struct {
 	Value int64
 }
 
+type PostfixExpression struct {
+	Token    token.Token // the postfix tokens: ++ or --
+	Operator string
+	Left     Expression
+	Right    Expression
+}
+
 type PrefixExpression struct {
 	Token    token.Token // the prefix tokens: ! or -
 	Operator string
@@ -320,6 +327,20 @@ func (oe *InfixExpression) String() string {
 	return out.String()
 }
 func (oe *InfixExpression) TokenLiteral() string { return oe.Token.Literal }
+
+func (po *PostfixExpression) expressionNode() {}
+func (po *PostfixExpression) String() string {
+	var out bytes.Buffer
+
+	out.WriteString("(")
+	out.WriteString(po.Left.String())
+	out.WriteString(" " + po.Operator + " ")
+	out.WriteString(po.Right.String())
+	out.WriteString(")")
+
+	return out.String()
+}
+func (po *PostfixExpression) TokenLiteral() string { return po.Token.Literal }
 
 func (bs *BlockStatement) statementNode()       {}
 func (bs *BlockStatement) TokenLiteral() string { return bs.Token.Literal }

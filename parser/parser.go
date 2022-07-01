@@ -30,6 +30,8 @@ var precedences = map[token.TokenType]int{
 	token.GT:       LESSGREATER,
 	token.PLUS:     SUM,
 	token.MINUS:    SUM,
+	token.INC:      SUM,
+	token.DEC:      SUM,
 	token.SLASH:    PRODUCT,
 	token.ASTERISK: PRODUCT,
 	token.LPAREN:   CALL,
@@ -73,6 +75,8 @@ func New(l *lexer.Lexer) *Parser {
 	p.registerPrefix(token.LBRACE, p.parseHashLiteral)
 
 	p.infixParseFns = make(map[token.TokenType]infixParseFn)
+	p.registerInfix(token.INC, p.parseInfixExpression)
+	p.registerInfix(token.DEC, p.parseInfixExpression)
 	p.registerInfix(token.PLUS, p.parseInfixExpression)
 	p.registerInfix(token.MINUS, p.parseInfixExpression)
 	p.registerInfix(token.SLASH, p.parseInfixExpression)
@@ -176,6 +180,8 @@ func (p *Parser) parseVarStatement() *ast.VarStatement {
 		p.nextToken()
 	}
 
+	fmt.Println(stmt)
+
 	return stmt
 }
 
@@ -207,6 +213,7 @@ func (p *Parser) parseExpressionStatement() *ast.ExpressionStatement {
 
 func (p *Parser) parseExpression(precedence int) ast.Expression {
 	prefix := p.prefixParseFns[p.curToken.Type]
+
 	if prefix == nil {
 		p.noPrefixParseFnError(p.curToken.Type)
 		return nil
@@ -214,6 +221,7 @@ func (p *Parser) parseExpression(precedence int) ast.Expression {
 	leftExp := prefix()
 
 	for !p.peekTokenIs(token.SEMICOLON) && precedence < p.peekPrecedence() {
+
 		infix := p.infixParseFns[p.peekToken.Type]
 		if infix == nil {
 			return leftExp
@@ -279,6 +287,26 @@ func (p *Parser) parsePrefixExpression() ast.Expression {
 	return expression
 }
 
+func (p *Parser) parseSingleOperatorExpression(operator string) ast.Expression {
+	tokenLit := &token.Token{Type: token.INT, Literal: "1"}
+	astInt := &ast.IntegerLiteral{Token: *tokenLit}
+
+	value, err := strconv.ParseInt(tokenLit.Literal, 0, 64)
+	if err != nil {
+		msg := fmt.Sprintf("could not parse %q as integer in postfix", tokenLit.Literal)
+		p.errors = append(p.errors, msg)
+		return nil
+
+	}
+
+	astInt.Value = value
+
+	return astInt
+
+	// TODO: need to add a varstatement to reasign variable
+
+}
+
 func (p *Parser) parseInfixExpression(left ast.Expression) ast.Expression {
 	expression := &ast.InfixExpression{
 		Token:    p.curToken,
@@ -286,7 +314,25 @@ func (p *Parser) parseInfixExpression(left ast.Expression) ast.Expression {
 		Left:     left,
 	}
 
+	// TODO: refactor this -> more to a single function
+	if p.curToken.Literal == token.INC {
+		expression.Token = token.Token{Type: token.PLUS, Literal: "+"}
+		expression.Operator = "+"
+		expression.Right = p.parseSingleOperatorExpression(p.curToken.Literal)
+		return expression
+	} else if p.curToken.Literal == token.DEC {
+		expression.Token = token.Token{Type: token.MINUS, Literal: "-"}
+		expression.Operator = "-"
+		expression.Right = p.parseSingleOperatorExpression(p.curToken.Literal)
+		return expression
+	}
+
+	// fmt.Println(1, expression.Operator) // ++
+	// fmt.Println(1, expression.Left) // foobar
+	fmt.Println(1, p.curToken) // foobar
+
 	precedence := p.curPrecedence()
+
 	p.nextToken()
 	expression.Right = p.parseExpression(precedence)
 

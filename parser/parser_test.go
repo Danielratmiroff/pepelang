@@ -210,6 +210,8 @@ func TestParsingInfixExpressions(t *testing.T) {
 		{"verdad == verdad", true, "==", true},
 		{"verdad != falso", true, "!=", false},
 		{"falso == falso", false, "==", false},
+		{"foobar++", "foobar", "+", 1},
+		{"foobar++", "foobar", "+", 1},
 	}
 
 	for _, tt := range infixTests {
@@ -219,6 +221,9 @@ func TestParsingInfixExpressions(t *testing.T) {
 		checkParserErrors(t, p)
 
 		if len(program.Statements) != 1 {
+			fmt.Println(program.Statements[0])
+			fmt.Println(program.Statements[1])
+
 			t.Fatalf("program.Statements does not contain %d statements. got=%d\n",
 				1, len(program.Statements))
 		}
@@ -955,6 +960,31 @@ func testVarStatement(t *testing.T, s ast.Statement, name string) bool {
 
 	if varStmt.Name.TokenLiteral() != name {
 		t.Errorf("s.Name not '%s'. got=%s", name, varStmt.Name)
+		return false
+	}
+
+	return true
+}
+
+func testPostfixExpression(t *testing.T, exp ast.Expression, left interface{},
+	operator string, right interface{}) bool {
+
+	opExp, ok := exp.(*ast.PostfixExpression)
+	if !ok {
+		t.Errorf("exp is not ast.OperatorExpression. got=%T(%s)", exp, exp)
+		return false
+	}
+
+	if !testLiteralExpression(t, opExp.Left, left) {
+		return false
+	}
+
+	if opExp.Operator != operator {
+		t.Errorf("exp.Operator is not '%s'. got=%q", operator, opExp.Operator)
+		return false
+	}
+
+	if !testLiteralExpression(t, opExp.Right, right) {
 		return false
 	}
 

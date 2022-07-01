@@ -58,9 +58,9 @@ type StringLiteral struct {
 	Value string
 }
 
-type RetornarStatement struct {
-	Token         token.Token // the Return token
-	RetornarValue Expression
+type ReturnStatement struct {
+	Token       token.Token // the Return token
+	ReturnValue Expression
 }
 
 type FunctionLiteral struct {
@@ -177,21 +177,21 @@ func (ls *VarStatement) String() string {
 }
 func (ls *VarStatement) TokenLiteral() string { return ls.Token.Literal }
 
-func (rs *RetornarStatement) statementNode() {}
-func (rs *RetornarStatement) String() string {
+func (rs *ReturnStatement) statementNode() {}
+func (rs *ReturnStatement) String() string {
 	var out bytes.Buffer
 
 	out.WriteString(rs.TokenLiteral() + " ")
 
-	if rs.RetornarValue != nil {
-		out.WriteString(rs.RetornarValue.String())
+	if rs.ReturnValue != nil {
+		out.WriteString(rs.ReturnValue.String())
 	}
 
 	out.WriteString(";")
 	return out.String()
 
 }
-func (rs *RetornarStatement) TokenLiteral() string { return rs.Token.Literal }
+func (rs *ReturnStatement) TokenLiteral() string { return rs.Token.Literal }
 
 func (ie *IfExpression) expressionNode()      {}
 func (ie *IfExpression) TokenLiteral() string { return ie.Token.Literal }

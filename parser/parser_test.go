@@ -41,7 +41,7 @@ func TestVarStatements(t *testing.T) {
 	}
 }
 
-func TestRetornarStatements(t *testing.T) {
+func TestReturnStatements(t *testing.T) {
 	tests := []struct {
 		input         string
 		expectedValue interface{}
@@ -63,15 +63,15 @@ func TestRetornarStatements(t *testing.T) {
 		}
 
 		stmt := program.Statements[0]
-		retornarStmt, ok := stmt.(*ast.RetornarStatement)
+		returnStmt, ok := stmt.(*ast.ReturnStatement)
 		if !ok {
-			t.Fatalf("stmt not *ast.retornarStatement. got=%T", stmt)
+			t.Fatalf("stmt not *ast.returnStatement. got=%T", stmt)
 		}
-		if retornarStmt.TokenLiteral() != "retornar" {
-			t.Fatalf("retornarStmt.TokenLiteral not 'retornar', got %q",
-				retornarStmt.TokenLiteral())
+		if returnStmt.TokenLiteral() != "retornar" {
+			t.Fatalf("returnStmt.TokenLiteral not 'retornar', got %q",
+				returnStmt.TokenLiteral())
 		}
-		if testLiteralExpression(t, retornarStmt.RetornarValue, tt.expectedValue) {
+		if testLiteralExpression(t, returnStmt.ReturnValue, tt.expectedValue) {
 			return
 		}
 	}

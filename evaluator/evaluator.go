@@ -25,12 +25,12 @@ func Eval(node ast.Node, env *object.Environment) object.Object {
 	case *ast.ExpressionStatement:
 		return Eval(node.Expression, env)
 
-	case *ast.RetornarStatement:
-		val := Eval(node.RetornarValue, env)
+	case *ast.ReturnStatement:
+		val := Eval(node.ReturnValue, env)
 		if isError(val) {
 			return val
 		}
-		return &object.RetornarValue{Value: val}
+		return &object.ReturnValue{Value: val}
 
 	case *ast.VarStatement:
 		val := Eval(node.Value, env)
@@ -126,7 +126,7 @@ func evalProgram(program *ast.Program, env *object.Environment) object.Object {
 		result = Eval(statement, env)
 
 		switch result := result.(type) {
-		case *object.RetornarValue:
+		case *object.ReturnValue:
 			return result.Value
 		case *object.Error:
 			return result
@@ -147,7 +147,7 @@ func evalBlockStatement(
 
 		if result != nil {
 			rt := result.Type()
-			if rt == object.RETORNAR_VALUE_OBJ || rt == object.ERROR_OBJ {
+			if rt == object.RETURN_VALUE_OBJ || rt == object.ERROR_OBJ {
 				return result
 			}
 		}
@@ -327,7 +327,7 @@ func applyFunction(fn object.Object, args []object.Object) object.Object {
 	case *object.Function:
 		extendedEnv := extendFunctionEnv(fn, args)
 		evaluated := Eval(fn.Body, extendedEnv)
-		return unwrapRetornarValue(evaluated)
+		return unwrapReturnValue(evaluated)
 
 	case *object.Builtin:
 		return fn.Fn(args...)
@@ -347,9 +347,9 @@ func extendFunctionEnv(fn *object.Function, args []object.Object) *object.Enviro
 	return env
 }
 
-func unwrapRetornarValue(obj object.Object) object.Object {
-	if retornarValue, ok := obj.(*object.RetornarValue); ok {
-		return retornarValue.Value
+func unwrapReturnValue(obj object.Object) object.Object {
+	if ReturnValue, ok := obj.(*object.ReturnValue); ok {
+		return ReturnValue.Value
 	}
 
 	return obj

@@ -75,8 +75,8 @@ func New(l *lexer.Lexer) *Parser {
 	p.registerPrefix(token.LBRACE, p.parseHashLiteral)
 
 	p.infixParseFns = make(map[token.TokenType]infixParseFn)
-	p.registerInfix(token.INC, p.parseInfixExpression)
-	p.registerInfix(token.DEC, p.parseInfixExpression)
+	p.registerInfix(token.INC, p.parseSingleOperatorExpression)
+	p.registerInfix(token.DEC, p.parseSingleOperatorExpression)
 	p.registerInfix(token.PLUS, p.parseInfixExpression)
 	p.registerInfix(token.MINUS, p.parseInfixExpression)
 	p.registerInfix(token.SLASH, p.parseInfixExpression)
@@ -179,8 +179,6 @@ func (p *Parser) parseVarStatement() *ast.VarStatement {
 	if p.peekTokenIs(token.SEMICOLON) {
 		p.nextToken()
 	}
-
-	fmt.Println(stmt)
 
 	return stmt
 }
@@ -287,21 +285,45 @@ func (p *Parser) parsePrefixExpression() ast.Expression {
 	return expression
 }
 
-func (p *Parser) parseSingleOperatorExpression(operator string) ast.Expression {
-	tokenLit := &token.Token{Type: token.INT, Literal: "1"}
-	astInt := &ast.IntegerLiteral{Token: *tokenLit}
-
-	value, err := strconv.ParseInt(tokenLit.Literal, 0, 64)
-	if err != nil {
-		msg := fmt.Sprintf("could not parse %q as integer", tokenLit.Literal)
-		p.errors = append(p.errors, msg)
-		return nil
-
+func (p *Parser) parseSingleOperatorExpression(left ast.Expression) ast.Expression {
+	expression := &ast.InfixExpression{
+		Left: left,
 	}
 
-	astInt.Value = value
+	setRightExpression := func() ast.Expression {
+		tokenLit := &token.Token{Type: token.INT, Literal: "1"}
+		astInt := &ast.IntegerLiteral{Token: *tokenLit}
 
-	return astInt
+		value, err := strconv.ParseInt(tokenLit.Literal, 0, 64)
+		if err != nil {
+			msg := fmt.Sprintf("could not parse %q as integer", tokenLit.Literal)
+			p.errors = append(p.errors, msg)
+			return nil
+
+		}
+		astInt.Value = value
+		return astInt
+	}
+
+	var tokLit *token.Token
+	var operator string
+	if p.curToken.Literal == token.INC {
+		operator = "+"
+		tokLit = &token.Token{Type: token.PLUS, Literal: operator}
+		expression.Operator = operator
+	} else if p.curToken.Literal == token.DEC {
+		operator = "-"
+		tokLit = &token.Token{Type: token.MINUS, Literal: operator}
+		expression.Operator = operator
+	}
+
+	expression.Token = *tokLit
+	expression.Right = setRightExpression()
+
+	return expression
+
+	// // fmt.Println(1, expression.Operator) // ++
+	// // fmt.Println(1, expression.Left) // foobar
 
 	// TODO: need to add a varstatement to reasign variable
 	// TODO: need to add a test case for this
@@ -313,22 +335,6 @@ func (p *Parser) parseInfixExpression(left ast.Expression) ast.Expression {
 		Operator: p.curToken.Literal,
 		Left:     left,
 	}
-
-	// TODO: refactor this -> more to a single function
-	if p.curToken.Literal == token.INC {
-		expression.Token = token.Token{Type: token.PLUS, Literal: "+"}
-		expression.Operator = "+"
-		expression.Right = p.parseSingleOperatorExpression(p.curToken.Literal)
-		return expression
-	} else if p.curToken.Literal == token.DEC {
-		expression.Token = token.Token{Type: token.MINUS, Literal: "-"}
-		expression.Operator = "-"
-		expression.Right = p.parseSingleOperatorExpression(p.curToken.Literal)
-		return expression
-	}
-
-	// fmt.Println(1, expression.Operator) // ++
-	// fmt.Println(1, expression.Left) // foobar
 
 	precedence := p.curPrecedence()
 

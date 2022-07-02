@@ -282,6 +282,10 @@ func (b *Boolean) String() string {
 	return out.String()
 }
 
+// func (ic *Increment) expressionNode()      {}
+// func (ic *Increment) String() string       { return ic.Value }
+// func (ic *Increment) TokenLiteral() string { return ic.Token.Literal }
+
 func (i *Identifier) expressionNode()      {}
 func (i *Identifier) String() string       { return i.Value }
 func (i *Identifier) TokenLiteral() string { return i.Token.Literal }

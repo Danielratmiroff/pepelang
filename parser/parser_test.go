@@ -7,6 +7,38 @@ import (
 	"testing"
 )
 
+// func TestIncrementalStatements(t *testing.T) {
+// 	tests := []struct {
+// 		input              string
+// 		expectedIdentifier string
+// 		expectedValue      interface{}
+// 	}{
+// 		{"var i = 1; i++", "i", 2},
+// 	}
+
+// 	for _, tt := range tests {
+// 		l := lexer.New(tt.input)
+// 		p := New(l)
+// 		program := p.ParseProgram()
+// 		checkParserErrors(t, p)
+
+// 		if len(program.Statements) != 1 {
+// 			t.Fatalf("program.Statements does not contain 1 statements. got=%d",
+// 				len(program.Statements))
+// 		}
+
+// 		stmt := program.Statements[0]
+// 		if !testVarStatement(t, stmt, tt.expectedIdentifier) {
+// 			return
+// 		}
+
+// 		val := stmt.(*ast.VarStatement).Value
+// 		if !testLiteralExpression(t, val, tt.expectedValue) {
+// 			return
+// 		}
+// 	}
+// }
+
 func TestVarStatements(t *testing.T) {
 	tests := []struct {
 		input              string
@@ -221,9 +253,6 @@ func TestParsingInfixExpressions(t *testing.T) {
 		checkParserErrors(t, p)
 
 		if len(program.Statements) != 1 {
-			fmt.Println(program.Statements[0])
-			fmt.Println(program.Statements[1])
-
 			t.Fatalf("program.Statements does not contain %d statements. got=%d\n",
 				1, len(program.Statements))
 		}

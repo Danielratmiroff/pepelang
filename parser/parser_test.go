@@ -7,37 +7,31 @@ import (
 	"testing"
 )
 
-// func TestIncrementalStatements(t *testing.T) {
-// 	tests := []struct {
-// 		input              string
-// 		expectedIdentifier string
-// 		expectedValue      interface{}
-// 	}{
-// 		{"var i = 1; i++", "i", 2},
-// 	}
+func TestIncrementalStatements(t *testing.T) {
+	tests := []struct {
+		input    string
+		expected interface{}
+	}{
+		{"i++", "var i = (i + 1);"},
+		// TODO: make -- funfoobar
+		// {"i--", "var i = (i - 1);"},
+		// TODO: refactor to replace "var i = (...) with i = i + 1"
+		// {"i++", "i = (i + 1);"},
+		// {"i--", "i = (i - 1);"},
+	}
 
-// 	for _, tt := range tests {
-// 		l := lexer.New(tt.input)
-// 		p := New(l)
-// 		program := p.ParseProgram()
-// 		checkParserErrors(t, p)
+	for _, tt := range tests {
+		l := lexer.New(tt.input)
+		p := New(l)
+		program := p.ParseProgram()
+		checkParserErrors(t, p)
 
-// 		if len(program.Statements) != 1 {
-// 			t.Fatalf("program.Statements does not contain 1 statements. got=%d",
-// 				len(program.Statements))
-// 		}
-
-// 		stmt := program.Statements[0]
-// 		if !testVarStatement(t, stmt, tt.expectedIdentifier) {
-// 			return
-// 		}
-
-// 		val := stmt.(*ast.VarStatement).Value
-// 		if !testLiteralExpression(t, val, tt.expectedValue) {
-// 			return
-// 		}
-// 	}
-// }
+		actual := program.String()
+		if actual != tt.expected {
+			t.Errorf("expected=%q, got=%q", tt.expected, actual)
+		}
+	}
+}
 
 func TestVarStatements(t *testing.T) {
 	tests := []struct {
@@ -242,8 +236,6 @@ func TestParsingInfixExpressions(t *testing.T) {
 		{"verdad == verdad", true, "==", true},
 		{"verdad != falso", true, "!=", false},
 		{"falso == falso", false, "==", false},
-		{"foobar++", "foobar", "+", 1},
-		{"foobar++", "foobar", "+", 1},
 	}
 
 	for _, tt := range infixTests {

@@ -73,8 +73,7 @@ func New(l *lexer.Lexer) *Parser {
 	p.registerPrefix(token.FUNCTION, p.parseFunctionLiteral)
 	p.registerPrefix(token.LBRACKET, p.parseArrayLiteral)
 	p.registerPrefix(token.LBRACE, p.parseHashLiteral)
-	// p.registerPrefix(token.INC, p.parseSingleOperatorExpression)
-	// p.registerPrefix(token.DEC, p.parseSingleOperatorExpression)
+	// TODO: refactor to utilise assign operator "=" instead of Identifier for single operands "a++"
 
 	p.infixParseFns = make(map[token.TokenType]infixParseFn)
 	p.registerInfix(token.PLUS, p.parseInfixExpression)
@@ -156,7 +155,7 @@ func (p *Parser) parseStatement() ast.Statement {
 	case token.RETURN:
 		return p.parseReturnStatement()
 	case token.IDENT:
-		if p.peekTokenIs(token.INC) {
+		if p.peekTokenIs(token.INC) || p.peekTokenIs(token.DEC) {
 			return p.parseIncrementalStatement()
 		} else {
 			return p.parseExpressionStatement()
@@ -168,6 +167,8 @@ func (p *Parser) parseStatement() ast.Statement {
 }
 
 func (p *Parser) parseIncrementalStatement() *ast.VarStatement {
+	// TODO: returns "var a = (a + 1)
+	// ideally, would be "a = a + 1", need to refactor
 	varTok := token.Token{Type: token.VAR, Literal: "var"}
 	stmt := &ast.VarStatement{Token: varTok}
 
@@ -198,11 +199,12 @@ func (p *Parser) parseIncrementalStatement() *ast.VarStatement {
 
 	stmt.Value = tok
 
+	// skip "++" token
+	p.nextToken()
+
 	if p.peekTokenIs(token.SEMICOLON) {
 		p.nextToken()
 	}
-
-	fmt.Println("(inc)", stmt)
 
 	return stmt
 }
@@ -226,8 +228,6 @@ func (p *Parser) parseVarStatement() *ast.VarStatement {
 		p.nextToken()
 	}
 
-	fmt.Println("(var)", stmt.Value)
-
 	return stmt
 }
 
@@ -246,6 +246,11 @@ func (p *Parser) parseReturnStatement() *ast.ReturnStatement {
 }
 
 func (p *Parser) parseExpressionStatement() *ast.ExpressionStatement {
+	// TODO: refactor this: shouldn't call expresions on increment or decrement
+	if p.curTokenIs(token.DEC) || p.curTokenIs(token.INC) {
+		p.nextToken()
+	}
+
 	stmt := &ast.ExpressionStatement{Token: p.curToken}
 
 	stmt.Expression = p.parseExpression(LOWEST)
@@ -296,6 +301,10 @@ func (p *Parser) curPrecedence() int {
 	return LOWEST
 }
 
+func (p *Parser) parsePostExpression() {
+	return
+}
+
 func (p *Parser) parseIdentifier() ast.Expression {
 	return &ast.Identifier{Token: p.curToken, Value: p.curToken.Literal}
 }
@@ -334,8 +343,9 @@ func (p *Parser) parsePrefixExpression() ast.Expression {
 
 func (p *Parser) parseSingleOperatorExpression() ast.Expression {
 
-	tokenLit := &token.Token{Type: token.INT, Literal: "1"}
-	astInt := &ast.IntegerLiteral{Token: *tokenLit}
+	return &ast.Identifier{Token: p.curToken, Value: p.curToken.Literal}
+	// tokenLit := &token.Token{Type: token.INT, Literal: "1"}
+	// astInt := &ast.IntegerLiteral{Token: *tokenLit}
 
 	// value, err := strconv.ParseInt(currentValue.TokenLiteral(), 0, 64)
 	// if err != nil {
@@ -346,7 +356,7 @@ func (p *Parser) parseSingleOperatorExpression() ast.Expression {
 	// }
 
 	// astInt.Value = value + 1
-	return astInt
+	// return astInt
 }
 
 // var tokLit *token.Token

@@ -75,6 +75,10 @@ func Eval(node ast.Node, env *object.Environment) object.Object {
 	case *ast.Identifier:
 		return evalIdentifier(node, env)
 
+	// TODO: utilise this as incremental/decremental function	type
+	// case *ast.PostExpression:
+	// return &object.String{Value: node.Value}
+
 	case *ast.FunctionLiteral:
 		params := node.Parameters
 		body := node.Body

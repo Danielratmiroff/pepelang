@@ -24,7 +24,7 @@ func TestReadExpectedInput(t *testing.T) {
 		}
 
 		line := scanner.Text()
-		fileLine := ReadExpectedInput(line)
+		fileLine := ReadUserInput(line)
 
 		if fileLine != tt.expectedValue {
 			t.Fatalf("fileLine values do not match, got=%s want=%s", fileLine, tt.expectedValue)

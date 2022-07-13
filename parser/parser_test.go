@@ -17,7 +17,7 @@ func TestIncrementalStatements(t *testing.T) {
 		// {"i--", "var i = (i - 1);"},
 		// TODO: refactor to replace "var i = (...) with i = i + 1"
 		// {"i++", "i = (i + 1);"},
-		// {"i--", "i = (i - 1);"},
+		{"i--", "var i = (i - 1);"},
 	}
 
 	for _, tt := range tests {

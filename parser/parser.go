@@ -188,12 +188,21 @@ func (p *Parser) parseIncrementalStatement() *ast.VarStatement {
 		astInt.Value = value
 		return astInt
 	}
+	var infixTok token.Token
+	var operand string
 
-	infixTok := token.Token{Type: token.PLUS, Literal: "+"}
+	if p.peekTokenIs(token.INC) {
+		operand = "+"
+		infixTok = token.Token{Type: token.PLUS, Literal: operand}
+	} else {
+		operand = "-"
+		infixTok = token.Token{Type: token.MINUS, Literal: operand}
+	}
+
 	tok := &ast.InfixExpression{
 		Token:    infixTok,
 		Left:     stmt.Name,
-		Operator: "+",
+		Operator: operand,
 		Right:    setRightExpression(),
 	}
 

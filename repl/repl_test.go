@@ -11,7 +11,7 @@ func TestReadExpectedInput(t *testing.T) {
 		input         string
 		expectedValue interface{}
 	}{
-		{"pp ./test_program.ppl", `var hey = fn(a) { retornar a + 3; } hey(1)`},
+		{"pp ./test_program.pp", `var hey = fn(a) { retornar a + 3; } hey(1)`},
 		{"5 + 5", "5 + 5"},
 	}
 	for _, tt := range tests {
@@ -24,7 +24,7 @@ func TestReadExpectedInput(t *testing.T) {
 		}
 
 		line := scanner.Text()
-		fileLine := ReadExpectedInput(line)
+		fileLine := ReadUserInput(line)
 
 		if fileLine != tt.expectedValue {
 			t.Fatalf("fileLine values do not match, got=%s want=%s", fileLine, tt.expectedValue)

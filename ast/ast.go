@@ -87,6 +87,11 @@ type Boolean struct {
 	Value bool
 }
 
+type PostExpression struct {
+	Token token.Token // the "++", "--" token
+	Value string
+}
+
 type Identifier struct {
 	Token token.Token // the IDENT token
 	Value string
@@ -282,9 +287,22 @@ func (b *Boolean) String() string {
 	return out.String()
 }
 
+// func (ic *Increment) expressionNode()      {}
+// func (ic *Increment) String() string       { return ic.Value }
+// func (ic *Increment) TokenLiteral() string { return ic.Token.Literal }
+
 func (i *Identifier) expressionNode()      {}
 func (i *Identifier) String() string       { return i.Value }
 func (i *Identifier) TokenLiteral() string { return i.Token.Literal }
+
+// TODO: use this for inc/dec types
+// func (p *PostExpression) expressionNode() {}
+// func (p *PostExpression) String() string {
+// 	return p.Token.Literal
+// }
+// func (p *PostExpression) TokenLiteral() string {
+// 	return p.Token.Literal
+// }
 
 func (sl *StringLiteral) expressionNode()      {}
 func (sl *StringLiteral) String() string       { return sl.Token.Literal }

@@ -6,8 +6,8 @@
 
 #### What is Pepelang?
  - Pepelang is an open source programming language supported by me 
- - Easy to learn and get started with (if you know spanish) 
- - Built-in sequential execution (get your concurrency out of here! who needs speed anyways?)
+ - Easy to learn and get started with *(if you know spanish)*
+ - Built-in sequential execution *(get your concurrency out of here! who needs speed anyways?)*
  - Open for PRs and improvements!
 
 ## Project

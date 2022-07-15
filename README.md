@@ -72,14 +72,15 @@ Run it with:
 
 Declared with the "var" keyword, can have either a string, number, boolean, array, dictionary or function value
 
-
-`var hello = "world"`
-
-<br>
+```
+var hello = "world"
+```
 
 ### Booleans:
 
+```
 verdad (true) or falso (false)
+```
 
 ### Arithmetics supported:
 	- addition (+)
@@ -156,11 +157,11 @@ falso
 
 Declared using the retonar keyword (as in previous example)
 
-- Function literals:
-	- Declared using the fn keyword
-	- Treated as high order functions (supports recursion and callback functions)
-	- Can take any number of parameters and such are treated as expressions.
-	- Support closure
+### Function literals:
+- Declared using the fn keyword
+- Treated as high order functions (supports recursion and callback functions)
+- Can take any number of parameters and such are treated as expressions.
+- Support closure
 
 ```
 >> var suma = fn(a, b) { a + b; };
@@ -204,7 +205,7 @@ Prints a value into the console
 print this message!
 ```
 
-- **First: **
+- **First:**
 Gets the first element of a given array
 
 - **Last:**
@@ -234,3 +235,7 @@ Inserts an element at the end of the array
 >> push(myArray, "42")
 [2, 3, "42"]
 ```
+
+<br>
+
+Enjoy!! 😄✨ (Spanish documentation coming soon! 

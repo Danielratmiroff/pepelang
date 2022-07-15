@@ -2,7 +2,7 @@ package ast
 
 import (
 	"bytes"
-	"ratmy/token"
+	"pepe/token"
 	"strings"
 )
 

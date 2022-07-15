@@ -1,9 +1,9 @@
 package evaluator
 
 import (
-	"ratmy/lexer"
-	"ratmy/object"
-	"ratmy/parser"
+	"pepe/lexer"
+	"pepe/object"
+	"pepe/parser"
 	"testing"
 )
 

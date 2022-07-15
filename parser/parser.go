@@ -5,9 +5,9 @@ package parser
 
 import (
 	"fmt"
-	"ratmy/ast"
-	"ratmy/lexer"
-	"ratmy/token"
+	"pepe/ast"
+	"pepe/lexer"
+	"pepe/token"
 	"strconv"
 )
 

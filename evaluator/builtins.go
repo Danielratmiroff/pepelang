@@ -2,7 +2,7 @@ package evaluator
 
 import (
 	"fmt"
-	"ratmy/object"
+	"pepe/object"
 )
 
 var builtins = map[string]*object.Builtin{

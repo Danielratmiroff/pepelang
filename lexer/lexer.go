@@ -4,7 +4,7 @@ package lexer
 // Create tokens out of the submitted source code
 
 import (
-	"ratmy/token"
+	"pepe/token"
 )
 
 type Lexer struct {

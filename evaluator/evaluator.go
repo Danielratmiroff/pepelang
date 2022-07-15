@@ -2,8 +2,8 @@ package evaluator
 
 import (
 	"fmt"
-	"ratmy/ast"
-	"ratmy/object"
+	"pepe/ast"
+	"pepe/object"
 )
 
 var (

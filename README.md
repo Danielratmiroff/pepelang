@@ -26,17 +26,18 @@ Pepelang's code looks like this:
 var sayHello = fn() { 
    retornar "hello world";
 }
+
 sayHello()
 ```
     
-> Prints: "hello world"
+*"hello world"*
     
 ## How to use?
 
-#### Requirements:
-- ![Golang](https://go.dev/) installed 
+### Requirements:
+- [Golang](https://go.dev/) installed 
 
-#### Install
+### Install
 Clone the repository into your local machine
 
 `git clone https://github.com/Danielratmiroff/pepelang.git`
@@ -52,35 +53,35 @@ Run it with:
 
 **Linux**:
 
-Add `pp` into your variable's path
-
-*.bashrc or .zshrc*
+Add `pp` into your variable's path (*.bashrc or .zshrc*)
 
 `export PATH=$PATH:$HOME/PATH_TO_PROJECT/pepe`
 
 ## Features & Syntax
-You can create and run your own pepe programs using the **".pp"** file extension. 
+You can create and run your own pepe programs using the **".pp"** file extension. (Yes, ".pp" extension is already a thing, but I found it very funny so I decided to keep it!)
 
 Create a `*.pp` file in any folder. `(e.g. hello.pp)`
 
-Run them with:
+Run it with:
 
-`pepe hello.pp` or `./pepe hello.pp`
+`pp hello.pp # (if an alias was created)` or `./pepe hello.pp`
 
 #### Pepelang supports the following functionality:
 
-- Variables:
+### Variables:
 
 Declared with the "var" keyword, can have either a string, number, boolean, array, dictionary or function value
 
 
 `var hello = "world"`
 
-- Booleans: 
+<br>
+
+### Booleans:
 
 verdad (true) or falso (false)
 
-- Arithmetics supported: 
+### Arithmetics supported:
 	- addition (+)
 	- substraction (-)
 	- multiplication (*)
@@ -104,7 +105,7 @@ falso
 69
 ```
 
-- Arrays:
+### Arrays:
 
 Indexes are treated as expressions, thus, all of the following are valid:
 
@@ -125,7 +126,7 @@ Indexes are treated as expressions, thus, all of the following are valid:
 falso
 ```
 
-- Dictionaries: 
+### Dictionaries:
 
 Keys are literal values and values are parsed as expressions
 
@@ -137,7 +138,7 @@ daniel
 69 
 ```
 
-- If/Else statements:
+### If/Else statements:
 
 Declared using the si (if) and sino (else), can take any expression value and evaluate the code accordingly
 
@@ -151,7 +152,7 @@ verdad
 falso
 ```
 
-- Return statements: 
+### Return statements:
 
 Declared using the retonar keyword (as in previous example)
 
@@ -181,9 +182,8 @@ sumaTotal(sumaDos, 2); // => 6
 
 ### Built in functions:
 
-- Len:
-
-returns the length on a given value. Supported by strings, integers and arrays
+- **Len:**
+Returns the length on a given value. Supported by strings, integers and arrays
 
 ```
 >> len("Hello world")
@@ -196,8 +196,7 @@ returns the length on a given value. Supported by strings, integers and arrays
 2
 ```
 
-- Puts: 
-
+- **Puts:**
 Prints a value into the console
 
 ```
@@ -205,12 +204,10 @@ Prints a value into the console
 print this message!
 ```
 
-- First: 
-
+- **First: **
 Gets the first element of a given array
 
-- Last:
-
+- **Last:**
 Gets the last element of a given array
 
 ```
@@ -221,8 +218,7 @@ Gets the last element of a given array
 3
 ```
 
-- Rest:
-
+- **Rest:**
 Removes the first element of a given array
 
 ```
@@ -231,8 +227,7 @@ Removes the first element of a given array
 [2, 3]
 ```
 
-- Push: 
-
+- **Push:**
 Inserts an element at the end of the array
 
 ```

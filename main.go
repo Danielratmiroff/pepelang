@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"os"
 	"os/user"
-	"ratmy/repl"
+	"pepe/repl"
 )
 
 func main() {
@@ -13,9 +13,9 @@ func main() {
 		panic(err)
 	}
 
-	fmt.Printf("Hello %s! This is the Ratmy programming language!\n",
+	fmt.Printf("Hola %s! Bienvenido a Pepelang!!\n",
 		user.Username)
-	fmt.Printf("Feel free to type in commands\n")
+	fmt.Printf("Puedes escribir cualquier comando aca :)\n")
 
 	repl.Start(os.Stdin, os.Stdout)
 }

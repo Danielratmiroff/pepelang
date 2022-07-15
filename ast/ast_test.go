@@ -1,7 +1,7 @@
 package ast
 
 import (
-	"ratmy/token"
+	"pepe/token"
 	"testing"
 )
 

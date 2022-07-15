@@ -2,8 +2,8 @@ package parser
 
 import (
 	"fmt"
-	"ratmy/ast"
-	"ratmy/lexer"
+	"pepe/ast"
+	"pepe/lexer"
 	"testing"
 )
 

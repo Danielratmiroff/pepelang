@@ -1,7 +1,7 @@
 package lexer
 
 import (
-	"ratmy/token"
+	"pepe/token"
 	"testing"
 )
 

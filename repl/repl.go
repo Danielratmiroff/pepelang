@@ -7,10 +7,10 @@ import (
 	"io/ioutil"
 	"log"
 	"os"
-	"ratmy/evaluator"
-	"ratmy/lexer"
-	"ratmy/object"
-	"ratmy/parser"
+	"pepe/evaluator"
+	"pepe/lexer"
+	"pepe/object"
+	"pepe/parser"
 	"strings"
 )
 

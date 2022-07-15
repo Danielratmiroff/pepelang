@@ -1,6 +1,7 @@
 # Pepelang!
 ![version](https://img.shields.io/badge/version-0.3-green)
-![coverage](https://img.shields.io/badge/coverage-90-yellowgreen)
+![coverage](https://img.shields.io/badge/coverage-85-yellowgreen)
+![coolness](https://img.shields.io/badge/coolness-99-blue)
 
 
 #### What is Pepelang?
@@ -21,10 +22,12 @@ It parses the source code in a Read-Eval-Print-Loop (REPL) environment and It ha
 
 Pepelang's code looks like this:
 
-```var sayHello = fn() { 
+```
+var sayHello = fn() { 
    retornar "hello world";
 }
-sayHello()```
+sayHello()
+```
     
 > Prints: "hello world"
     

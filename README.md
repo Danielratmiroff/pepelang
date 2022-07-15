@@ -1,5 +1,11 @@
 ## Pepelang!
 
+
+[category]: <> (side-projects)
+[date]: <> (2022/07/14)
+[title]: <> (The pepelang programming language)
+[color]: <> (green)
+
 #### What is Pepelang?
  - Pepelang is an open source programming language supported by me 
  - Easy to learn and get started with (if you know spanish) 
@@ -27,8 +33,35 @@ Pepelang's code looks like this:
   Prints:
     "hello world"
     
-    
-#### Features:
+## How to use?
+
+#### Requirements
+- Golang 
+
+#### Install
+Clone the repository into your local machine
+`git clone https://github.com/Danielratmiroff/pepelang.git`
+ 
+In the project's main folder, built it by running 
+`go build -o .`
+
+Run it with:
+`./pepe` *or just execute the ".exe" if you're in windows*
+
+**Linux**:
+Add `pp` into your variable's path
+*.bashrc or .zshrc*
+`export PATH=$PATH:$HOME/PATH_TO_PROJECT/pepe`
+
+### Features
+You can create and run your own pepe programs using the ".pp" file extension. 
+
+Create a `*.pp` file in any folder. `(e.g. hello.pp)`
+Run them with:
+`pepe hello.pp` or `./pepe hello.pp`
+
+
+#### Syntax:
 Pepelang supports the following:
 
 Variables: Declared with the "var" keyword, can have either a string, number, boolean, array, dictionary or function value
@@ -94,3 +127,35 @@ var sumaDos = fn(x) {
 }; 
 
 sumaTotal(sumaDos, 2); // => 6
+
+### Built in functions (methods):
+- Len: returns the length on a given value. Supported by strings, integers and arrays
+>> len("Hello world")
+12
+
+>> var myArray = [1, 2, 3]
+>> len(myArray)
+2
+
+- Puts: prints a value into the console
+>> puts("print this message!")
+print this message!
+
+#### Array methods:
+- First: gets the first element of a given array
+- Last: gets the last element of a given array
+>> var myArray = [1, 2, 3]
+>> first(myArray)
+1
+>> last(myArray)
+3
+
+- Rest: removes the first element of a given array
+>> var myArray = [1, 2, 3]
+>> rest(myArray)
+[2, 3]
+
+- Push: inserts an element at the end of the array
+>> push(myArray, "42")
+[2, 3, "42"]
+

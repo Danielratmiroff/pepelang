@@ -144,12 +144,20 @@ daniel
 Declared using the `si # (if)` and `sino # (else)`, can take any expression value and evaluate the code accordingly
 
 ```
->> si ( 1 < 2 ) { retonar verdad }
+>> si ( 1 < 2 ) { 
+retonar verdad
+}
+
 verdad
 ```
 
 ```
->> si ( 42 == 69 ) { retonar verdad } sino { retornar falso };
+>> si ( 42 == 69 ) { 
+retonar verdad 
+} sino { 
+retornar falso
+};
+
 falso
 ```
 

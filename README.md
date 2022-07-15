@@ -70,7 +70,7 @@ Run it with:
 
 ### Variables:
 
-Declared with the "var" keyword, can have either a string, number, boolean, array, dictionary or function value
+Declared with the `var` keyword, can have either a string, number, boolean, array, dictionary or function value
 
 ```
 var hello = "world"
@@ -83,12 +83,12 @@ verdad (true) or falso (false)
 ```
 
 ### Arithmetics supported:
-	- addition (+)
-	- substraction (-)
-	- multiplication (*)
-	- division (/)
-	- not operator (!)
-	- single operands (++) (--)
+- addition (+)
+- substraction (-)
+- multiplication (*)
+- division (/)
+- not operator (!)
+- single operands (++) (--)
 	
 ```
 >> 4 + 2
@@ -141,7 +141,7 @@ daniel
 
 ### If/Else statements:
 
-Declared using the si (if) and sino (else), can take any expression value and evaluate the code accordingly
+Declared using the `si # (if)` and `sino # (else)`, can take any expression value and evaluate the code accordingly
 
 ```
 >> si ( 1 < 2 ) { retonar verdad }
@@ -155,7 +155,7 @@ falso
 
 ### Return statements:
 
-Declared using the retonar keyword (as in previous example)
+Declared using the `retonar` keyword (as in previous example)
 
 ### Function literals:
 - Declared using the fn keyword

@@ -6,7 +6,7 @@ import (
 )
 
 var builtins = map[string]*object.Builtin{
-	"len": &object.Builtin{Fn: func(args ...object.Object) object.Object {
+	"tam": &object.Builtin{Fn: func(args ...object.Object) object.Object {
 		if len(args) != 1 {
 			return newError("wrong number of arguments. got=%d, want=1",
 				len(args))
@@ -18,12 +18,12 @@ var builtins = map[string]*object.Builtin{
 		case *object.String:
 			return &object.Integer{Value: int64(len(arg.Value))}
 		default:
-			return newError("argument to `len` not supported, got %s",
+			return newError("argument to `tam` not supported, got %s",
 				args[0].Type())
 		}
 	},
 	},
-	"puts": &object.Builtin{
+	"pon": &object.Builtin{
 		Fn: func(args ...object.Object) object.Object {
 			for _, arg := range args {
 				fmt.Println(arg.Inspect())
@@ -32,14 +32,14 @@ var builtins = map[string]*object.Builtin{
 			return NULL
 		},
 	},
-	"first": &object.Builtin{
+	"primero": &object.Builtin{
 		Fn: func(args ...object.Object) object.Object {
 			if len(args) != 1 {
 				return newError("wrong number of arguments. got=%d, want=1",
 					len(args))
 			}
 			if args[0].Type() != object.ARRAY_OBJ {
-				return newError("argument to `first` must be ARRAY, got %s",
+				return newError("argument to `primero` must be ARRAY, got %s",
 					args[0].Type())
 			}
 
@@ -51,14 +51,14 @@ var builtins = map[string]*object.Builtin{
 			return NULL
 		},
 	},
-	"last": &object.Builtin{
+	"ultimo": &object.Builtin{
 		Fn: func(args ...object.Object) object.Object {
 			if len(args) != 1 {
 				return newError("wrong number of arguments. got=%d, want=1",
 					len(args))
 			}
 			if args[0].Type() != object.ARRAY_OBJ {
-				return newError("argument to `last` must be ARRAY, got %s",
+				return newError("argument to `ultimo` must be ARRAY, got %s",
 					args[0].Type())
 			}
 
@@ -93,14 +93,14 @@ var builtins = map[string]*object.Builtin{
 			return NULL
 		},
 	},
-	"push": &object.Builtin{
+	"empuja": &object.Builtin{
 		Fn: func(args ...object.Object) object.Object {
 			if len(args) != 2 {
 				return newError("wrong number of arguments. got=%d, want=2",
 					len(args))
 			}
 			if args[0].Type() != object.ARRAY_OBJ {
-				return newError("argument to `push` must be ARRAY, got %s",
+				return newError("argument to `empuja` must be ARRAY, got %s",
 					args[0].Type())
 			}
 

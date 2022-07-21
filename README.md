@@ -73,7 +73,7 @@ Run it with:
 Declared with the `var` keyword, can have either a string, number, boolean, array, dictionary or function value
 
 ```
-var hello = "world"
+var hola = "mundo"
 ```
 
 ### Booleans:
@@ -111,19 +111,19 @@ falso
 Indexes are treated as expressions, thus, all of the following are valid:
 
 ```
->> var array = ["hello", 2, "world", 4]
->> array[3]
-"world"
+>> var lista = ["hola", 2, "mundo", 4]
+>> lista[3]
+"mundo"
 ```
 
 ```
->> var array = [6 < 9 , 4 + 2]
->> expArray[1]
+>> var lista = [6 < 9 , 4 + 2]
+>> lista[1]
 6
 ```
 ```
->> var array = [!verdad, !falso]
->> array[0]
+>> var lista = [!verdad, !falso]
+>> lista[0]
 falso
 ```
 
@@ -132,10 +132,10 @@ falso
 Keys are literal values and values are parsed as expressions
 
 ```
->> var myDic = { "name": "daniel", "age": 69}; 
->> myDic["name"];
+>> var miDic = { "nombre": "daniel", "edad": 69}; 
+>> miDic["nombre"];
 daniel 
->> myDic["age"]; 
+>> miDic["edad"]; 
 69 
 ```
 
@@ -179,10 +179,10 @@ Declared using the `retonar` keyword (as in previous example)
 
 ```
 var sumaTotal = fn(f, x) { 
-	 return sumaDos(sumaDos(x)); 
+	 retornar sumaDos(sumaDos(x)); 
 }; 
 var sumaDos = fn(x) { 
-	return x + 2; 
+	retornar x + 2; 
 }; 
 
 sumaTotal(sumaDos, 2); // => 6
@@ -191,39 +191,39 @@ sumaTotal(sumaDos, 2); // => 6
 
 ### Built in functions:
 
-- **Len:**
+- **Tam:**
 Returns the length on a given value. Supported by strings, integers and arrays
 
 ```
->> len("Hello world")
+>> tam("Hello world")
 12
 ```
 
 ```
->> var myArray = [1, 2, 3]
->> len(myArray)
+>> var lista = [1, 2, 3]
+>> tam(lista)
 2
 ```
 
-- **Puts:**
+- **Pon:**
 Prints a value into the console
 
 ```
->> puts("print this message!")
-print this message!
+>> pon("Imprime este mensaje!")
+imprime este mensaje!
 ```
 
-- **First:**
+- **Primero:**
 Gets the first element of a given array
 
-- **Last:**
+- **Ultimo:**
 Gets the last element of a given array
 
 ```
->> var myArray = [1, 2, 3]
->> first(myArray)
+>> var lista = [1, 2, 3]
+>> primero(lista)
 1
->> last(myArray)
+>> ultimo(lista)
 3
 ```
 
@@ -231,16 +231,16 @@ Gets the last element of a given array
 Removes the first element of a given array
 
 ```
->> var myArray = [1, 2, 3]
->> rest(myArray)
+>> var lista = [1, 2, 3]
+>> rest(lista)
 [2, 3]
 ```
 
-- **Push:**
+- **Empuja:**
 Inserts an element at the end of the array
 
 ```
->> push(myArray, "42")
+>> empuja(lista, "42")
 [2, 3, "42"]
 ```
 

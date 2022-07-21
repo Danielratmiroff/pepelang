@@ -23,11 +23,11 @@ It parses the source code in a Read-Eval-Print-Loop (REPL) environment and It ha
 Pepelang's code looks like this:
 
 ```
-var sayHello = fn() { 
+var hola = fn() { 
    retornar "hello world";
 }
 
-sayHello()
+hola()
 ```
     
 *"hello world"*

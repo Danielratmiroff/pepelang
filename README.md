@@ -34,9 +34,6 @@ hola()
     
 ## How to use?
 
-### Requirements:
-- [Golang](https://go.dev/) installed 
-
 ### Install
 You'll need to [install Go](https://go.dev/doc/install)
 

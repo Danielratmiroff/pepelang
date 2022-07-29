@@ -48,7 +48,6 @@ Call pepe in your terminal
 
 ```
 $ pepe
-$ pepe youProgram.pp # or call a pp program
 ```
 
 You can also cal a pepe program:

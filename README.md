@@ -38,24 +38,23 @@ hola()
 - [Golang](https://go.dev/) installed 
 
 ### Install
-Clone the repository into your local machine
+You'll need to [install Go](https://go.dev/doc/install)
 
-`git clone https://github.com/Danielratmiroff/pepelang.git`
- 
-In the project's main folder, built it by running 
+```
+git clone https://github.com/Danielratmiroff/pepelang.git
+cd pepe
+go install
+```
 
-`go build -o .`
+### Usage
+Call pepe in your terminal
 
-Run it with:
+```
+$ pepe
+```
+If you want, you can also add an alias for this with echo "alias pp='pepe'" >> ~/.zshrc (or whichever rc file you're using).
 
-`./pepe` 
-*or just execute the ".exe" if you're in windows*
-
-**Linux**:
-
-Add `pp` into your variable's path (*.bashrc or .zshrc*)
-
-`export PATH=$PATH:$HOME/PATH_TO_PROJECT/pepe`
+**Please note: If you get an error claiming that lazygit cannot be found or is not defined, you may need to add ~/go/bin to your $PATH (MacOS/Linux), or %HOME%\go\bin (Windows). Not to be mistaken for C:\Go\bin (which is for Go's own binaries, not apps like pepe).**
 
 ## Features & Syntax
 You can create and run your own pepe programs using the **".pp"** file extension. (Yes, ".pp" extension is already a thing, but I found it very funny so I decided to keep it!)

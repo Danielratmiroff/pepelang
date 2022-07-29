@@ -51,6 +51,12 @@ $ pepe
 $ pepe youProgram.pp # or call a pp program
 ```
 
+You can also cal a pepe program:
+
+```
+$ pepe youProgram.pp
+```
+
 
 If you want, you can also add an alias for this with echo "alias pp='pepe'" >> ~/.zshrc (or whichever rc file you're using).
 

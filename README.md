@@ -50,7 +50,7 @@ Call pepe in your terminal
 $ pepe
 ```
 
-You can also cal a pepe program:
+You can also call a pepe program:
 
 ```
 $ pepe youProgram.pp

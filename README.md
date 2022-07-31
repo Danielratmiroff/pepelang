@@ -59,7 +59,7 @@ $ pepe youProgram.pp
 
 If you want, you can also add an alias for this with echo "alias pp='pepe'" >> ~/.zshrc (or whichever rc file you're using).
 
-**Please note: If you get an error claiming that lazygit cannot be found or is not defined, you may need to add ~/go/bin to your $PATH (MacOS/Linux), or %HOME%\go\bin (Windows). Not to be mistaken for C:\Go\bin (which is for Go's own binaries, not apps like pepe).**
+**Please note: If you get an error claiming that pepe cannot be found or is not defined, you may need to add ~/go/bin to your $PATH (MacOS/Linux), or %HOME%\go\bin (Windows). Not to be mistaken for C:\Go\bin (which is for Go's own binaries, not apps like pepe).**
 
 ## Features & Syntax
 You can create and run your own pepe programs using the **".pp"** file extension. (Yes, ".pp" extension is already a thing, but I found it very funny so I decided to keep it!)
